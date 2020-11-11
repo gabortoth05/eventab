@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap 4 Website Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <style>
+  
+
+  
+  body{
+  font-family: 'Montserrat','Helvetica Neue',sans-serif;
+  text-rendering: optimizeLegibility;
+  
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100vh;
+	font-family: "Exo", sans-serif;
+//	color: #fff;
+	
+}
+
+
+  
+  
+.video-bg {
+  position: relative;
+  background-color: black;
+  height: 100vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+.video-bg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.video-bg .container {
+  position: relative;
+  z-index: 2;
+}
+
+.video-bg .overlay {
+  background-color: black;
+	opacity: 0.5;
+	z-index: 1;
+}
+
+
+
+.context-dark, .bg-gray-dark, .bg-primary {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.list-group-item{
+  background-color: transparent !important;
+  padding: 5px;
+margin-left: 25px !important;
+  border-radius: 5px !important;
+}
+
+.list1{
+	background-color: #fd5c7c !important;
+}
+
+.list2{
+	background-color: #7a4988 !important;
+}
+
+.list3{
+	background-color: #f9435a !important;
+}
+
+.list4{
+	background-color: #ba6496 !important;
+}
+
+.custom-btn{
+  color: #f85c84;
+}
+
+.custom-btn-left{
+  color: #f85c84;
+  border-right: 2px solid #fff;
+}
+
+.blue-title{
+	color: #1c519a;
+	text-transform: uppercase;
+font-weight: 700;
+letter-spacing: 15px;
+font-size: 5.5rem;
+}
+
+.subtitle{
+color: #fff;
+font-size: 2rem;
+font-weight: 500;
+letter-spacing: 5px;
+text-align: center;
+}
+
+
+.absolute-block{
+	widht: 40px !important;
+	height: 280px;
+	width: 500px;
+}
+
+.center-top{
+	width: 96px;
+	height: 106px;
+	position: absolute;
+	top: -11px;
+	left: 43%;
+	background-image: url('top.png');
+	-webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+
+.center-middle{
+	width: 200px;
+    height: 217px;
+    top: 75px;
+    position: absolute;
+    left: 43%;
+    background-image: url('middle.png');
+
+}
+
+.left{
+
+	width: 160px;
+height: 160px;
+position: absolute;
+top: 13px;
+left: 56%;
+background-image: url('left.png');
+-webkit-animation: spin 4s linear infinite;
+-moz-animation: spin 4s linear infinite;
+animation: spin 4s linear infinite;
+
+}
+.right{
+
+	width: 160px;
+height: 160px;
+position: absolute;
+top: 91px;
+left: 32%;
+background-image: url('left.png');
+-webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+
+}
+
+.footer-text{
+	color: #fff;
+}
+
+.list-top{
+	margin-top: 4rem;
+}
+
+.footer-top{
+	margin-top: 2rem;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); }
+  </style>
+</head>
+<body>
+<!--
+<video id="overlay" autoplay muted  id="myVideo">
+  <source src="src/video/intro.mp4" type="video/mp4">
+</video>-->
+
+<div class="container-fluid video-bg " >
+	
+  <video class="overlay" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+
+    <source src="event.mp4" type="video/mp4">
+  </video>
+  <div class="container">
+		<div class="d-flex justify-content-center">
+			<div class="absolute-block">
+				<div class="left"></div>
+				<div class="center-top"></div>
+				<div class="center-middle"></div>
+				<div class="right"></div>
+				
+			</div>
+		</div>
+   
+      <div class="d-flex justify-content-center">
+		
+		<div>
+		<h1 class="blue-title align-middle">Eventab</h1>
+		<p class="subtitle"><b>Big moments</b> made easy</p>
+		</div>
+			
+			
+			
+      </div>
+	  
+	  <div class="d-flex justify-content-center">
+		 <div class="btn-group btn-group-lg">
+		  <button type="button" class="btn  custom-btn-left">About us</button>
+		  <button type="button" class="btn custom-btn">Contact</button>
+		</div> 
+	  </div>
+	  
+	  <div class="d-flex justify-content-center">
+		 <ul class=" list-group list-group-horizontal list-top">
+
+			<li class="list-group-item list1"><a href="#"><i class="fab fa-facebook" style="color:white"></i></a></li>
+			<li class="list-group-item list2"><a href="#"><i class="fab fa-twitter" style="color:white"></i></a></li>
+			<li class="list-group-item list3"><a href="#"><i class="fab fa-dribbble" style="color:white"></i></a></li>
+			<li class="list-group-item list4"><a href="#"><i class="fab fa-behance" style="color:white"></i></a></li>
+		</ul>
+	  </div>
+	
+		<div class="d-flex justify-content-center footer-top">>
+		
+		<p class="footer-text"> Copyright 2001 - 2021 EventAB. All rights reserved.</p>
+		
+		</div>
+  </div>
+</div>
+
+<script>
+  $(window).scroll(function() {
+  $(".slideanim-Y").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide-Y");
+    }
+  });
+  
+  $(".slideanim-Y-inv").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide-Y-inv");
+    }
+  });
+  
+   $(".slideanim-X").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide-X");
+    }
+  });
+  
+   $(".slideanim-X-inv").each(function(){
+    var pos = $(this).offset().top;
+
+    var winTop = $(window).scrollTop();
+    if (pos < winTop + 600) {
+      $(this).addClass("slide-X-inv");
+    }
+  });
+  
+}); 
+</script>
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="min-height:0px" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_15275476998023250" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module"></div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+<div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+<div class="row-fluid ">
+<div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+<div id="hs_cos_wrapper_module_1525562915398919" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" style="" data-hs-cos-general-type="widget" data-hs-cos-type="module">
+
+</div>
+
+</div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end footer -->
+</div><!--end footer wrapper -->
+
+<script>
+// Get the video
+var video = document.getElementById("myVideo");
+
+// Get the button
+var btn = document.getElementById("myBtn");
+
+// Pause and play the video, and change the button text
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    btn.innerHTML = "Pause";
+  } else {
+    video.pause();
+    btn.innerHTML = "Play";
+  }
+}
+
+document.getElementById('myVideo').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        alert("LOADED");
+		document.getElementById("overlay").style.display = "none";
+    };
+	
+
+
+</script>
+
+</body>
+</html>
